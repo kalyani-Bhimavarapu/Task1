@@ -89,4 +89,14 @@ router.get('/logout', (req, res) => {
   res.redirect('/users/login');
 });
 
+router.get('/registerdata',async(req,res) => {
+  try{
+      const user = await User.find() ;
+       res.json(user);
+      }catch(err){
+          res.json({message: err})
+      }
+
+  });
+
 module.exports = router;
