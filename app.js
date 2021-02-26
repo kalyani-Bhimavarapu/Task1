@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
-const jwt = require('jsonwebtoken');
+
 const app = express();
 
 require('./config/passport')(passport);
@@ -50,8 +50,9 @@ app.use(function(req, res, next) {
 
 // Routes
 app.use('/', require('./routes/index.js'));
+app.use('/admin', require('./routes/admin.js'));
 app.use('/users', require('./routes/users.js'));
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5500;
 
 app.listen(PORT, console.log(`Server running on  ${PORT}`))
