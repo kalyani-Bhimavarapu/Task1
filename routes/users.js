@@ -5,7 +5,6 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
 const User = require('../models/User');
-const { forwardAuthenticated } = require('../config/auth');
 
 router.get('/login', (req,res) => res.render('login'));
 router.get('/register',(req,res) => res.render('register'))
@@ -88,15 +87,5 @@ router.get('/logout', (req, res) => {
   req.flash('success_msg', 'You are logged out');
   res.redirect('/users/login');
 });
-
-router.get('/registerdata',async(req,res) => {
-  try{
-      const user = await User.find() ;
-       res.json(user);
-      }catch(err){
-          res.json({message: err})
-      }
-
-  });
 
 module.exports = router;

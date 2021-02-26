@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/User');
+const passport = require('passport');
 
 router.get('/posts', verifyToken, (req, res) => {
     
@@ -19,15 +20,12 @@ router.get('/posts', verifyToken, (req, res) => {
         });
     });
 
-   
-    router.post('/login', (req, res) => {
-    const admin = {}
-
-    jwt.sign({admin}, 'secretkey', { expiresIn: '50s' }, (err, token) => {
-        res.json({
-          token
-        });
-      });
+     router.post('/login', (req, res, next) => {
+      passport.authenticate('local', {
+        successRedirect: '/approved',
+        failureRedirect: '/unapproved',
+        failureFlash: true,
+      })(req, res, next);
     });
     
 
